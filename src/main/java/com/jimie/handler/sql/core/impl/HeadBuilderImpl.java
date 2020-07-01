@@ -23,7 +23,20 @@ public class HeadBuilderImpl implements HeadBuilder {
 
     @Override
     public String createBean(TableModel model) {
-        return "@Data\r\n@DbType\r\n@TWTableName(name = \""+model.getTableName()+"\")\r\npublic class "+model.getBeanName()+" extends BaseEntityImpl {%s}";
+
+        String result = "package com.businessameco;\n" +
+                "\n" +
+                "import com.triweb.annotation.DbType;\n" +
+                "import com.triweb.annotation.TWTableName;\n" +
+                "import com.triweb.entity.BaseEntityImpl;\n" +
+                "import lombok.Data;\n" +
+                "\n" +
+                "/**\n" +
+                " * @author litingjie\n" +
+                " * 2020-7-1\n" +
+                " */\n";
+
+        return result + "@Data\r\n@DbType\r\n@TWTableName(name = \""+model.getTableName()+"\")\r\npublic class "+model.getBeanName()+" extends BaseEntityImpl {\r\n%s}";
     }
 
 }

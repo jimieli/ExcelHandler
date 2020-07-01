@@ -6,6 +6,9 @@ import com.jimie.handler.sql.core.Builder;
 import com.jimie.handler.sql.core.HeadBuilder;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author litingjie
  * 2020-7-1
@@ -36,8 +39,11 @@ public class BuilderImpl implements Builder {
     }
 
     @Override
-    public String createBean(TableModel model) {
+    public Map<String,String> createBean(TableModel model) {
 
+        Map<String,String> result = new HashMap<>(2);
+
+        result.put("fileName",model.getBeanName()+".java");
         String baseBean = headBuilder.createBean(model);
         String columnBean = bodyBuilder.createBean(model.getColumn());
 
@@ -45,6 +51,8 @@ public class BuilderImpl implements Builder {
 
         System.out.println(bean);
 
-        return bean;
+        result.put("bean",bean);
+
+        return result;
     }
 }

@@ -43,7 +43,7 @@ public class ExcelHandlerTest {
     public void analysisExcel(){
         try {
 
-            File file = new File("C:\\Users\\JiMie\\Desktop\\kingwant\\715\\715数据库设计-产品结构及型号.xlsx");
+            File file = new File("C:\\Users\\JiMie\\Desktop\\kingwant\\ameco\\AMECO数据表_v1_2020_07_1.xlsx");
             Map<String,List<List<Object>>> map = excelReader.readFromExcel(file.toPath(), ExcelType.xlsx);
 
             List<String> tableSql = createTableSql(map.get("Sheet1"));
@@ -66,7 +66,7 @@ public class ExcelHandlerTest {
         for (int i = 0; i < datas.size(); i++) {
             List<Object> objects = datas.get(i);
 
-            String o = objects.get(0).toString();
+            String o = objects.get(5).toString();
             if(o.startsWith("triweb")){
                 startIndexList.add(i);
             }
@@ -89,12 +89,13 @@ public class ExcelHandlerTest {
         return result;
     }
 
-    private String createSql(List<List<Object>> datas, int startIndex, int endIndex){
+    private String createSql(List<List<Object>> data, int startIndex, int endIndex){
 
-        List<Object> row = datas.get(startIndex);
+        List<Object> row = data.get(startIndex);
         String tableName = row.get(0).toString();
 
-        StringBuilder builder = new StringBuilder("create table ").append(tableName).append("(").append("  id varchar(32) primary key,\n" +
+        StringBuilder builder = new StringBuilder("create table ").append(tableName).append("(").
+                append("  id varchar(32) primary key,\n" +
                 "  cruser varchar(50),\n" +
                 "  mduser varchar(50),\n" +
                 "  crtime bigint,\n" +
@@ -104,7 +105,7 @@ public class ExcelHandlerTest {
 
         for (int i = startIndex + 2; i <= endIndex; i++) {
 
-            List<Object> columnRow = datas.get(i);
+            List<Object> columnRow = data.get(i);
 
             String columnName = columnRow.get(1).toString();
             String type = columnRow.get(2).toString();
