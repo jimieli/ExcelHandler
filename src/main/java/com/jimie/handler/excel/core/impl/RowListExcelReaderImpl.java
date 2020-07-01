@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author litingjie
@@ -56,9 +53,21 @@ public class RowListExcelReaderImpl implements ExcelReader<Map<String,List<List<
      * 将行数据转换为行所有单元格的数据的集合
      */
     private List<Object> rowFinder(Row row){
-        List<Object> result = new ArrayList<>(row.getLastCellNum());
+        int capacity = row.getLastCellNum();
+
+        if(capacity<1){
+            return Collections.emptyList();
+        }
+
+        List<Object> result = new ArrayList<>(capacity);
         for (int i = 0; i < row.getLastCellNum(); i++) {
             Cell cell = row.getCell(i);
+
+            if(cell == null){
+                result.add("");
+                continue;
+            }
+
             CellValueGetter cellValueGetter = getterMap.get(cell.getCellType());
             if(cellValueGetter == null){
                 throw new RuntimeException("未找到cellType的实现类:"+cell.getCellType());
