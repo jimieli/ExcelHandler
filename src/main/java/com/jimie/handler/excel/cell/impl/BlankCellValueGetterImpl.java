@@ -17,6 +17,8 @@ public class BlankCellValueGetterImpl extends AbstractCellValueGetter<String> {
         return "";
     }
 
+
+    @Override
     public CellType cellType() {
         return CellType.BLANK;
     }
