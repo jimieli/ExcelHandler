@@ -12,7 +12,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <mavent.compiler.compilerVersion>1.8</mavent.compiler.compilerVersion>
         <poi.version>4.1.2</poi.version>
-        <spring.version>5.2.7.RELEASE</spring.version>
+        <spring.version>5.2.22.RELEASE</spring.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
